@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import authService from "../../services/authService";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import { login } from "features/user/userSlice";
+import { selectUser } from "features/user/userSlice";
 export default function Login() {
   const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const history = useHistory();
   const submitHandler = (e) => {
@@ -17,9 +19,14 @@ export default function Login() {
     console.log(jsonData);
     authService.logIn(jsonData).then((res) => {
       dispatch(login(res));
-      history.push('/admin/dashboard')
+      history.push("/admin/dashboard");
     });
   };
+  useEffect(() => {
+    if(user){
+      history.push("/admin/dashboard");
+    }
+  }, []);
   return (
     <>
       <div className="container mx-auto px-4 h-full">

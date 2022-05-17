@@ -5,23 +5,28 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import ReactAutoComplete from "components/ReactAutoComplete/ReactAutoComplete";
+import ReactAutoComplete from "../../components/ReactAutoComplete/ReactAutoComplete";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import categoryService from "../../services/categoryService";
+import TextEditor from "../TextEditorComponent/TextEditor";
+import topicService from "../../services/topicService";
+import { useHistory } from "react-router";
 
 function FormTopic() {
   const location = useLocation();
-  const [id, setId] = useState(null);
+  const history = useHistory();
+  const [id, setId] = useState(0);
   const [defaultTitle, setDefaultTitle] = useState("");
   const [title, setTitle] = useState("");
   const [subTitle, setSubTitle] = useState("");
   const [lang, setLang] = useState("ru");
   const [parent, setParent] = useState([]);
   const [parentId, setParentId] = useState(null);
+  const [content, setContent] = useState("");
   const handleLanguage = (e) => {
     setLang(e.target.value);
-    categoryService.getCategoryByIdAndLang(id, e.target.value).then((res) => {
+    topicService.getTopicByIdAndLang(id, e.target.value).then((res) => {
       console.log(res.data);
       let data = res.data.body;
       setTitle(data.title ? data.title : "");
@@ -34,44 +39,49 @@ function FormTopic() {
       defaultTitle: defaultTitle,
       title: title,
       subTitle: subTitle,
-      parentTopicCategoryId: parentId.id ? parentId.id : 0,
+      content: content,
+      categoryId: parentId ? parentId.id : null,
     };
     if (id > 0) {
-      categoryService.updateCategory(dataObj).then((res) => {
+      topicService.updateCategory(dataObj).then((res) => {
         let dataTemp = res.data.body;
         if (dataTemp.id > 0) {
-          categoryService
-            .translationCategory(
+          topicService
+            .translationTopic(
               {
                 id: dataTemp.id,
                 defaultTitle: defaultTitle,
                 title: title,
                 subTitle: subTitle,
-                parentTopicCategoryId: parentId.id ? parentId.id : 0,
+                content: content,
+                categoryId: parentId ? parentId.id : null,
               },
               lang
             )
             .then((res) => {
+              history.push(`/settings/topic`);
               console.log(res.data.body);
             });
         }
       });
     } else {
-      categoryService.addCategory(dataObj).then((res) => {
+      topicService.addTopic(dataObj).then((res) => {
         let dataTemp = res.data.body;
         if (dataTemp.id > 0) {
-          categoryService
-            .translationCategory(
+          topicService
+            .translationTopic(
               {
                 id: dataTemp.id,
                 defaultTitle: defaultTitle,
                 title: title,
+                content: content,
                 subTitle: subTitle,
-                parentTopicCategoryId: parentId.id ? parentId.id : 0,
+                categoryId: parentId ? parentId.id : null,
               },
               lang
             )
             .then((res) => {
+              history.push(`/settings/topic`);
               console.log(res.data.body);
             });
         }
@@ -83,12 +93,13 @@ function FormTopic() {
   };
   useEffect(() => {
     let data = location.state ? location.state.data : null;
+    console.log(data);
     if (data) {
       setId(data.id ? data.id : null);
       setDefaultTitle(data.defaultTitle ? data.defaultTitle : "");
       setTitle(data.title ? data.title : "");
       setSubTitle(data.subTitle ? data.subTitle : "");
-      setParentId(data.parentId ? data.parentId : "");
+      setParentId(data.categoryId ? data.categoryId : "");
     }
     categoryService.getCategories().then((res) => {
       let dataTemp = res.data.body.map((item) => {
@@ -214,14 +225,24 @@ function FormTopic() {
           </form>
           <hr className="mt-6 border-b-1 border-blueGray-300" />
           <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
-            Parent
+            Content
+          </h6>
+          <div className="flex flex-wrap">
+            <div className="relative w-full mb-3">
+              <TextEditor setContent={setContent} content={content} />
+            </div>
+          </div>
+          <hr className="mt-6 border-b-1 border-blueGray-300" />
+
+          <h6 className="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">
+            Category
           </h6>
           <div className="flex flex-wrap">
             <div className="relative w-full mb-3">
               <ReactAutoComplete
                 optionData={parent}
                 defValue={parentId}
-                placeHolder={"Parents"}
+                placeHolder={"Categories"}
                 optionValue={parentId}
                 onChange={handleParent}
               />

@@ -3,9 +3,8 @@ import { useEffect, useState } from "react";
 import ModeEditOutlineTwoToneIcon from "@mui/icons-material/ModeEditOutlineTwoTone";
 import DeleteSweepTwoToneIcon from "@mui/icons-material/DeleteSweepTwoTone";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import topicService from "../../services/topicService";
+import referenceService from "../../services/referenceService";
 const columns = [
-  { id: "defaultTitle", label: "Default title", minWidth: 100 },
   { id: "title", label: "Title", minWidth: 100 },
   {
     id: "subTitle",
@@ -15,8 +14,21 @@ const columns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "parentTitle",
-    label: "Category",
+    id: "author",
+    label: "Author",
+    minWidth: 100,
+    align: "left",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "publishedAt",
+    label: "Published at",
+    minWidth: 100,
+    align: "left",
+    format: (value) => value.toLocaleString("en-US"),
+  }, {
+    id: "publishedIn",
+    label: "Published in",
     minWidth: 100,
     align: "left",
     format: (value) => value.toLocaleString("en-US"),
@@ -29,27 +41,30 @@ const columns = [
     format: (value) => value.toFixed(2),
   },
 ];
-export default function TopicTable() {
+function ReferencesList() {
   const history = useHistory();
-  const [topics, setTopics] = useState([]);
+  const [references, setReferences] = useState([]);
   const [loading, setLoading] = useState(false);
   const deleteTopic = (id) => {
     setLoading(true);
-    topicService.deleteTopicById(id).then((res) => {
+    referenceService.deleteRefernce(id).then((res) => {
       setLoading(false);
     });
     console.log("called detele");
   };
-  const fetchTopics = () => {
-    topicService.getTopics().then((res) => {
+  const fetchReferences = () => {
+    referenceService.getReferences().then((res) => {
+      console.log( res.data.body);
       let data = res.data.body.map((item) => {
         console.log(item);
         return {
           id: item.id,
           defaultTitle: item.defaultTitle,
           title: item.title ? item.title : "empty",
-          subTitle: item.subTitle ? item.subTitle : "empty",
-          parentTitle: item.parentTitle ? item.parentTitle : "empty",
+          subTitle: item.subtitle ? item.subtitle : "empty",
+          author: item.author ? item.author : "empty",
+          publishedAt: item.publishedAt ? item.publishedAt : "empty",
+          publishedIn: item.publishedIn ? item.publishedIn : "empty",
           action: (
             <div key={item.id} className="flex relative justify-center">
               <div
@@ -57,7 +72,7 @@ export default function TopicTable() {
                 onClick={(e) => {
                   e.preventDefault();
                   history.push({
-                    pathname: "/settings/topic/add",
+                    pathname: "/settings/references/add",
                     // search: '?update=true',  // query string
                     state: {
                       // location state
@@ -81,38 +96,38 @@ export default function TopicTable() {
           ),
         };
       });
-      setTopics(data);
+      setReferences(data);
     });
   };
   useEffect(() => {
-    fetchTopics();
+    fetchReferences();
   }, [loading]);
   return (
-    <>
-      <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-        <div className="rounded-t mb-0 px-4 py-3 border-0">
-          <div className="flex flex-wrap items-center">
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-              <h3 className="font-semibold text-base text-blueGray-700">
-                Topics
-              </h3>
-            </div>
-            <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-              <a
-                href="/settings/topic/add"
-                className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-              >
-                Add
-              </a>
-            </div>
+    <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
+      <div className="rounded-t mb-0 px-4 py-3 border-0">
+        <div className="flex flex-wrap items-center">
+          <div className="relative w-full px-4 max-w-full flex-grow flex-1">
+            <h3 className="font-semibold text-base text-blueGray-700">
+              References
+            </h3>
+          </div>
+          <div className="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
+            <a
+              href="/settings/references/add"
+              className="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-1 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+            >
+              Add
+            </a>
           </div>
         </div>
-        <div className="block w-full overflow-x-auto">
-          {/* Projects table */}
-          <DataTable rowsData={topics} columnsData={columns} />
-        </div>
       </div>
-    </>
+      <div className="block w-full overflow-x-auto">
+        {/* Projects table */}
+        <DataTable rowsData={references} columnsData={columns} />
+      </div>
+    </div>
   );
 }
+
+export default ReferencesList;

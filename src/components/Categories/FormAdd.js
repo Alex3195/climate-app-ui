@@ -7,11 +7,13 @@ import {
 } from "@mui/material";
 import ReactAutoComplete from "components/ReactAutoComplete/ReactAutoComplete";
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import categoryService from "../../services/categoryService";
 
 function FormAdd() {
   const location = useLocation();
+  const history = useHistory();
   const [id, setId] = useState(null);
   const [defaultTitle, setDefaultTitle] = useState("");
   const [title, setTitle] = useState("");
@@ -34,8 +36,9 @@ function FormAdd() {
       defaultTitle: defaultTitle,
       title: title,
       subTitle: subTitle,
-      parentTopicCategoryId: parentId.id ? parentId.id : 0,
+      parentTopicCategoryId: parentId ? parentId.id : null,
     };
+    console.log(dataObj);
     if (id > 0) {
       categoryService.updateCategory(dataObj).then((res) => {
         let dataTemp = res.data.body;
@@ -47,12 +50,13 @@ function FormAdd() {
                 defaultTitle: defaultTitle,
                 title: title,
                 subTitle: subTitle,
-                parentTopicCategoryId: parentId.id ? parentId.id : 0,
+                parentTopicCategoryId: parentId ? parentId.id : null,
               },
               lang
             )
             .then((res) => {
               console.log(res.data.body);
+              history.push('/settings/category')
             });
         }
       });
@@ -67,12 +71,13 @@ function FormAdd() {
                 defaultTitle: defaultTitle,
                 title: title,
                 subTitle: subTitle,
-                parentTopicCategoryId: parentId.id ? parentId.id : 0,
+                parentTopicCategoryId: parentId ? parentId.id : null,
               },
               lang
             )
             .then((res) => {
               console.log(res.data.body);
+              history.push('/settings/category')
             });
         }
       });
@@ -82,7 +87,7 @@ function FormAdd() {
     setParentId(value);
   };
   useEffect(() => {
-    let data = location.state.data;
+    let data = location.state ? location.state.data : null;
     if (data) {
       setId(data.id ? data.id : null);
       setDefaultTitle(data.defaultTitle ? data.defaultTitle : "");

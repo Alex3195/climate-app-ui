@@ -7,20 +7,21 @@ import "assets/styles/tailwind.css";
 
 // layouts
 
-import Admin from "layouts/Admin.js";
-import Auth from "layouts/Auth.js";
+import Admin from "./layouts/Admin.js";
+import Auth from "./layouts/Auth.js";
 
 // views without layouts
 
-import Landing from "views/Landing.js";
-import Profile from "views/Profile.js";
-import Index from "views/Index.js";
+import Landing from "./views/Landing.js";
+import Profile from "./views/Profile.js";
+import Index from "./views/Index.js";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store } from "./app/store";
 import persistStore from "redux-persist/es/persistStore";
-import CkEditorComponent from "components/CKEditorComponent/CkEditorComponent";
-import Setting from "layouts/Setting";
+import Setting from "./layouts/Setting";
+import References from "./views/mainView/References.js";
+import PdfViewPage from "./views/mainView/PdfViewPage.js";
 
 let persistor = persistStore(store);
 ReactDOM.render(
@@ -35,8 +36,9 @@ ReactDOM.render(
           {/* add routes without layouts */}
           <Route path="/landing" exact component={Landing} />
           <Route path="/profile" exact component={Profile} />
-          <Route path="/ckeditor" exact component={CkEditorComponent} />
           <Route path="/" exact component={Index} />
+          <Route path="/references" exact component={References} />
+          <Route path="/viewDoc" exact component={PdfViewPage} />
           {/* add redirect for first page */}
           <Redirect from="*" to="/" />
         </Switch>

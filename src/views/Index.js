@@ -33,15 +33,17 @@ export default function Index() {
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="pt-32 sm:pt-0">
               <h2 className="font-semibold text-4xl text-blueGray-600">
-                <Translation text={"What is climate?"} language={language} />
+              What is climate?
+                {/* <Translation text={"What is climate?"} language={language} /> */}
               </h2>
               <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
-                <Translation
+              The composite or generally prevailing weather conditions of a region, as temperature, air pressure, humidity, precipitation,  sunshine, cloudiness, and winds, throughout the year, averaged  over a series of years.{
+                /* <Translation
                   text={
                     "the composite or generally prevailing weather conditions of a region, as temperature, air pressure, humidity, precipitation,  sunshine, cloudiness, and winds, throughout the year, averaged  over a series of years."
                   }
                   language={"ru"}
-                />
+                /> */}
               </p>
               <div className="mt-12">
                 <a
@@ -49,14 +51,16 @@ export default function Index() {
                   target="_blank"
                   className="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-lightBlue-500 active:bg-lightBlue-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                 >
-                  <Translation text={"Log in"} language={language} />
+                  Log in
+                  {/* <Translation text={"Log in"} language={language} /> */}
                 </a>
                 <a
                   href="/auth/register"
                   className="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-blueGray-700 active:bg-blueGray-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
                   target="_blank"
                 >
-                  <Translation text={"Registeration"} language={language} />
+                  Registeration
+                  {/* <Translation text={"Registeration"} language={language} /> */}
                 </a>
               </div>
             </div>
@@ -112,18 +116,22 @@ export default function Index() {
                     ></polygon>
                   </svg>
                   <h4 className="text-xl font-bold text-white">
-                    <Translation
+                    What you can get here?
+                    {/* <Translation
                       text={"What you can get here?"}
                       language={language}
-                    />
+                    /> */}
                   </h4>
                   <p className="text-md font-light mt-2 text-white">
-                    <Translation
+                    You can get basic concepts about climate, basic parameters,
+                    mathematical and physical equations and the necessary
+                    literature
+                    {/* <Translation
                       text={
                         "You can get basic concepts about climate, basic parameters, mathematical and physical equations and the necessary literature"
                       }
                       language={language}
-                    />
+                    /> */}
                   </p>
                 </blockquote>
               </div>

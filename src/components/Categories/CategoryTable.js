@@ -52,7 +52,7 @@ export default function CategoryTable() {
           action: (
             <div key={item.id} className="flex relative justify-center">
               <div
-                className="bg-blue-200 cursor-pointer pr-4"
+                className="text-blue-500 cursor-pointer pr-4"
                 onClick={(e) => {
                   e.preventDefault();
                   history.push({
@@ -68,7 +68,7 @@ export default function CategoryTable() {
                 <ModeEditOutlineTwoToneIcon />
               </div>
               <div
-                className="bg-pink-600 cursor-pointer pl-4"
+                className="text-pink-600 cursor-pointer pl-4"
                 onClick={(e) => {
                   e.preventDefault();
                   deleteCategory(item.id);

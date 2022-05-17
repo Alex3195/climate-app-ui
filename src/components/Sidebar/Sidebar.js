@@ -74,7 +74,6 @@ export default function Sidebar() {
                 />
               </div>
             </form>
-
             {/* Divider */}
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
@@ -82,7 +81,6 @@ export default function Sidebar() {
               Admin Layout Pages
             </h6>
             {/* Navigation */}
-
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
               <li className="items-center">
                 <Link
@@ -106,7 +104,7 @@ export default function Sidebar() {
                 </Link>
               </li>
 
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -126,6 +124,28 @@ export default function Sidebar() {
                   ></i>{" "}
                   Settings
                 </Link>
+              </li> */}
+              <li className="items-center">
+                <Link
+                  className={
+                    "text-xs uppercase py-3 font-bold block " +
+                    (window.location.href.indexOf("/settings/references") !== -1
+                      ? "text-lightBlue-500 hover:text-lightBlue-600"
+                      : "text-blueGray-700 hover:text-blueGray-500")
+                  }
+                  to="/settings/references"
+                >
+                  <i
+                    className={
+                      "fas fa-book mr-2 text-sm " +
+                      (window.location.href.indexOf("/settings/references") !==
+                      -1
+                        ? "opacity-75"
+                        : "text-blueGray-300")
+                    }
+                  ></i>{" "}
+                  References
+                </Link>
               </li>
 
               <li className="items-center">
@@ -140,7 +160,7 @@ export default function Sidebar() {
                 >
                   <i
                     className={
-                      "fas fa-tools mr-2 text-sm " +
+                      "fas fa-meteor mr-2 text-sm " +
                       (window.location.href.indexOf("/settings/topic") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
@@ -162,17 +182,17 @@ export default function Sidebar() {
                 >
                   <i
                     className={
-                      "fas fa-tools mr-2 text-sm " +
+                      "fas fa-cloud-moon mr-2 text-sm " +
                       (window.location.href.indexOf("/settings/category") !== -1
                         ? "opacity-75"
                         : "text-blueGray-300")
                     }
                   ></i>{" "}
-                  Categories setting
+                  Categories
                 </Link>
               </li>
-
-              <li className="items-center">
+            </ul>
+            {/* <li className="items-center">
                 <Link
                   className={
                     "text-xs uppercase py-3 font-bold block " +
@@ -218,14 +238,13 @@ export default function Sidebar() {
             </ul>
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            {/* <hr className="my-4 md:min-w-full" /> */}
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Auth Layout Pages
-            </h6>
+            </h6> */}
             {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
@@ -246,16 +265,14 @@ export default function Sidebar() {
                 </Link>
               </li>
             </ul>
-
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            {/* <hr className="my-4 md:min-w-full" /> */}
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               No Layout Pages
-            </h6>
+            </h6> */}
             {/* Navigation */}
-
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link
                   className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
@@ -275,7 +292,7 @@ export default function Sidebar() {
                   Profile Page
                 </Link>
               </li>
-            </ul>
+            </ul> */} 
           </div>
         </div>
       </nav>

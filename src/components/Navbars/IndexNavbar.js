@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 // components
 
-import IndexDropdown from "components/Dropdowns/IndexDropdown.js";
+import IndexDropdown from "../../components/Dropdowns/IndexDropdown.js";
 
 export default function Navbar(props) {
   const [navbarOpen, setNavbarOpen] = React.useState(false);
@@ -34,9 +34,9 @@ export default function Navbar(props) {
             id="example-navbar-warning"
           >
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto">
-              {/* <li className="flex items-center">
+              <li className="flex items-center">
                 <IndexDropdown />
-              </li> */}
+              </li>
               <li className="flex items-center">
                 <a
                   className="hover:text-blueGray-500 text-blueGray-700 px-3 py-4 lg:py-2 flex items-center text-xs uppercase font-bold"

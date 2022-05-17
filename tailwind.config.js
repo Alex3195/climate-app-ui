@@ -35,6 +35,7 @@ module.exports = {
       zIndex: {
         2: 2,
         3: 3,
+        999: 999,
       },
       inset: {
         "-100": "-100%",
@@ -62,6 +63,8 @@ module.exports = {
       },
       maxHeight: {
         "860-px": "860px",
+        "700-px": "700px",
+        "500-px": "500px",
       },
       maxWidth: {
         "100-px": "100px",

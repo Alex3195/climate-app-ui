@@ -1,5 +1,5 @@
 import React from "react";
-import FormAdd from "components/Categories/FormAdd";
+import FormAdd from "../../components/Categories/FormAdd";
 
 function AddCategory() {
   return (
