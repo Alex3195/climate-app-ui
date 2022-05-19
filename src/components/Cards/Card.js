@@ -17,7 +17,7 @@ const Card = ({
   const [imageById, setImageById] = useState();
   const [fileUrl, setFileUrl] = useState();
   const downloadFile = (id) => {
-    let fileName = `report-client-balance_${new Date().toISOString[0]}.pdf`;
+    let fileName = `${title}_${new Date().toISOString[0]}.pdf`;
     fileService.getFileById(id).then((response) => {
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");

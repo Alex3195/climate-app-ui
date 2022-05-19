@@ -22,6 +22,7 @@ import persistStore from "redux-persist/es/persistStore";
 import Setting from "./layouts/Setting";
 import References from "./views/mainView/References.js";
 import PdfViewPage from "./views/mainView/PdfViewPage.js";
+import UserRouter from "./layouts/UserRouter.js";
 
 let persistor = persistStore(store);
 ReactDOM.render(
@@ -32,6 +33,7 @@ ReactDOM.render(
           {/* add routes with layouts */}
           <Route path="/admin" component={Admin} />
           <Route path="/settings" component={Setting} />
+          <Route path="/researcher" component={UserRouter} />
           <Route path="/auth" component={Auth} />
           {/* add routes without layouts */}
           <Route path="/landing" exact component={Landing} />

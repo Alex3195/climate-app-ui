@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 // components
 
 import AdminNavbar from "../components/Navbars/AdminNavbar.js";
-import Sidebar from "../components/Sidebar/Sidebar.js";
+import AdminSidebar from "../components/Sidebar/AdminSidebar.js";
 import HeaderStats from "../components/Headers/HeaderStats.js";
 import FooterAdmin from "../components/Footers/FooterAdmin.js";
 
@@ -14,12 +14,11 @@ import Dashboard from "../views/admin/Dashboard.js";
 import Maps from "../views/admin/Maps.js";
 import Settings from "../views/admin/Settings.js";
 import Tables from "../views/admin/Tables.js";
-import TopicCategory from "../views/admin/TopicCategory.js";
 
 export default function Admin() {
   return (
     <>
-      <Sidebar />
+      <AdminSidebar />
       <div className="relative md:ml-64 bg-blueGray-100">
         <AdminNavbar />
         {/* Header */}

@@ -8,13 +8,14 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
-import { useDispatch } from "react-redux/es/exports";
+import { useDispatch, useSelector } from "react-redux/es/exports";
 import Logout from "@mui/icons-material/Logout";
-import { logout } from "../../features/user/userSlice";
+import { logout, selectUser } from "../../features/user/userSlice";
 import teamImg from "../../assets/img/team-1-800x800.jpg";
 import { useHistory } from "react-router-dom";
 
 export default function AccountMenu() {
+  const user = useSelector(selectUser);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const dispatch = useDispatch();
@@ -77,7 +78,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem>
-          <Avatar /> My account
+          <Avatar /> {user ? user.fullName : "My account"}
         </MenuItem>
         <Divider />
         <MenuItem>
@@ -89,7 +90,7 @@ export default function AccountMenu() {
         <MenuItem
           onClick={(e) => {
             dispatch(logout());
-            history.push('/auth/login')
+            history.push("/auth/login");
           }}
         >
           <ListItemIcon>

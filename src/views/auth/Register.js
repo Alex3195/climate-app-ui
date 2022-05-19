@@ -1,6 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router";
+import authService from "../../services/authService";
 
 export default function Register() {
+  const history = useHistory();
+  const [userName, setUserName] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSave = (e) => {
+    e.preventDefault();
+    let dataObj = {
+      username: userName,
+      password: password,
+      fullName: fullName,
+      role: "USER",
+    };
+    authService
+      .register(dataObj)
+      .then((res) => {
+        console.log(res.data.body);
+        history.push("/auth/login");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <div className="container mx-auto px-4 h-full">
@@ -40,9 +64,6 @@ export default function Register() {
                 <hr className="mt-6 border-b-1 border-blueGray-300" />
               </div>
               <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
-                <div className="text-blueGray-400 text-center mb-3 font-bold">
-                  <small>Or sign up with credentials</small>
-                </div>
                 <form>
                   <div className="relative w-full mb-3">
                     <label
@@ -55,6 +76,10 @@ export default function Register() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Name"
+                      onChange={(e) => {
+                        setFullName(e.target.value);
+                      }}
+                      value={fullName}
                     />
                   </div>
 
@@ -69,6 +94,11 @@ export default function Register() {
                       type="email"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Email"
+                      required
+                      value={userName}
+                      onChange={(e) => {
+                        setUserName(e.target.value);
+                      }}
                     />
                   </div>
 
@@ -83,6 +113,11 @@ export default function Register() {
                       type="password"
                       className="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       placeholder="Password"
+                      required
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                      value={password}
                     />
                   </div>
 
@@ -109,7 +144,8 @@ export default function Register() {
                   <div className="text-center mt-6">
                     <button
                       className="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                      type="button"
+                      type="submit"
+                      onClick={handleSave}
                     >
                       Create Account
                     </button>

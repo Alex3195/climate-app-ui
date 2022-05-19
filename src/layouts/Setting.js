@@ -4,7 +4,7 @@ import { Switch, Route } from "react-router-dom";
 // components
 
 import AdminNavbar from "../components/Navbars/AdminNavbar.js";
-import Sidebar from "../components/Sidebar/Sidebar.js";
+import Sidebar from "../components/Sidebar/AdminSidebar.js";
 import FooterAdmin from "../components/Footers/FooterAdmin.js";
 
 // views

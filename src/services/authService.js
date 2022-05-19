@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { Axios } from "axios";
 const API_URL = process.env.REACT_APP_HOST;
 
 const logIn = (data) => {
@@ -14,7 +14,11 @@ const logOut = () => {
   localStorage.removeItem("user");
   localStorage.removeItem("token");
 };
+const register = (data) => {
+  return axios.post(API_URL + "register", data);
+};
 export default {
   logIn,
   logOut,
+  register,
 };

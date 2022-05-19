@@ -23,8 +23,13 @@ export default function Login() {
     });
   };
   useEffect(() => {
-    if(user){
-      history.push("/admin/dashboard");
+    if (user) {
+      if (user.role === "ADMINISTRATOR") {
+        history.push("/admin/dashboard");
+      }
+      if (user.role === "USER") {
+        history.push("/researcher/dashboard");
+      }
     }
   }, []);
   return (
