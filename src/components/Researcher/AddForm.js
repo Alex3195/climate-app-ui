@@ -11,6 +11,7 @@ import { useLocation } from "react-router-dom/cjs/react-router-dom.min";
 import fileService from "../../services/fileService";
 import DownloadingIcon from "@mui/icons-material/Downloading";
 import loadTemplateByParamService from "../../services/loadTemplateByParamService";
+import researcherQueriesService from "../../services/researcherQueriesService";
 function AddForm() {
   const location = useLocation();
   const history = useHistory();
@@ -36,12 +37,6 @@ function AddForm() {
       case "va":
         setParamName("Meridional Wind");
         break;
-      case "wa":
-        setParamName("Vertical Wind");
-        break;
-      case "ps":
-        setParamName("Surface Pressure");
-        break;
       default:
         setParamName("");
         break;
@@ -50,16 +45,21 @@ function AddForm() {
   const handleSave = (e) => {
     let dataObj = {
       title: title,
-      period: period,
-      graphicsPeriod: graphicsPeriod,
+      periodTrainingData: period,
+      periodGraphicsData: graphicsPeriod,
       paramCode: paramCode,
       paramName: paramName,
       fileId: fileId,
     };
+    researcherQueriesService.addQuery(dataObj).then((res) => {
+      history.push("/researcher/queries");
+    });
   };
   const handleTemplate = (e) => {
     e.preventDefault();
-    let fileName = `${title}_${new Date().toISOString[0]}.txt`;
+    let fileName = `temperature_${new Date()
+      .toISOString()
+      .substring(0, 10)}.zip`;
     loadTemplateByParamService.getTemplateByParam(paramCode).then((res) => {
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement("a");
@@ -208,16 +208,6 @@ function AddForm() {
                         control={<Radio value={"va"} onChange={handleParam} />}
                         label="Meridional wind"
                       />
-                      <FormControlLabel
-                        value="wa"
-                        control={<Radio value={"wa"} onChange={handleParam} />}
-                        label="Vertical wind"
-                      />
-                      <FormControlLabel
-                        value="ps"
-                        control={<Radio value={"ps"} onChange={handleParam} />}
-                        label="Surface Pressure"
-                      />
                     </RadioGroup>
                   </FormControl>
                 </div>
@@ -227,7 +217,7 @@ function AddForm() {
                     className="mt-3 lg:ml-48 text-blue-500 cursor-pointer
                   "
                     onClick={handleTemplate}
-                  >
+                  > 
                     <DownloadingIcon fontSize="large" />
                   </div>
                 </div>
@@ -260,6 +250,7 @@ function AddForm() {
                       </div>
                       <input
                         type="file"
+                        accept=".sra"
                         className="opacity-0"
                         onChange={(e) => {
                           e.preventDefault();
@@ -268,7 +259,6 @@ function AddForm() {
                           formData.append("filename", title);
                           fileService.addFile(formData).then((res) => {
                             setFileId(res.data.body);
-                            console.log(res.data.body);
                           });
                         }}
                       />

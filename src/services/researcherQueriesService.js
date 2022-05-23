@@ -1,7 +1,7 @@
 import AXIOS from "./authHeader";
 
-const getQueriesList = () => {
-  return AXIOS.get("researcher/order/list");
+const getQueriesList = (data) => {
+  return AXIOS.post("researcher/order/list", data);
 };
 const getQueriesById = (id) => {
   return AXIOS.get(`researcher/order/${id}`);

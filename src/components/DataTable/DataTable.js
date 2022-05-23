@@ -8,7 +8,13 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
-export default function DataTable({ rowsData, columnsData }) {
+export default function DataTable({
+  rowsData,
+  columnsData,
+  filter,
+  setFilter,
+  setLoading,
+}) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -18,7 +24,12 @@ export default function DataTable({ rowsData, columnsData }) {
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
+    setFilter({
+      ...filter,
+      length: event.target.value,
+    });
     setPage(0);
+    setLoading(true);
   };
 
   return (
